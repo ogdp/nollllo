@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <button onclick="showNotification()">Hiển thị thông báo</button>
@@ -12,21 +13,28 @@
     <script>
       function showNotification() {
         // Kiểm tra xem trình duyệt có hỗ trợ thông báo không
+
         if (!("Notification" in window)) {
           alert("Trình duyệt của bạn không hỗ trợ thông báo.");
         }
-
         // Yêu cầu quyền hiển thị thông báo nếu chưa được cấp
         else if (Notification.permission !== "denied") {
+        }
+        setInterval(() => {
+          const timee = new Date();
+          console.log(timee);
           Notification.requestPermission(function (permission) {
             // Nếu người dùng đồng ý, tạo thông báo
             if (permission === "granted") {
-              var notification = new Notification("Thông báo từ trang web", {
-                body: "Xin chào! Đây là một thông báo từ trang web.",
-              });
+              var notification = new Notification(
+                `Thông báo từ trang web ${String(timee)}`,
+                {
+                  body: "Xin chào! Đây là một thông báo từ trang web.",
+                }
+              );
             }
           });
-        }
+        }, 5000);
       }
     </script>
   </body>
